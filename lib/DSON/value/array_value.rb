@@ -19,5 +19,5 @@ module DSON
         'so ' + reduce(content, POTENTIAL_JOINERS) + 'many'
       end
     end
-end
+  end
 end
