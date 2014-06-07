@@ -7,9 +7,8 @@ Gem::Specification.new do |spec|
   spec.name          = "DSON"
   spec.version       = DSON::VERSION
   spec.authors       = ["ishakir"]
-  spec.email         = ["shakimra@uk.ibm.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.email         = ["imran.pshakir@gmail.com"]
+  spec.summary       = %q{A pure-ruby DSON Serializer}
   spec.homepage      = ""
   spec.license       = "MIT"
 
