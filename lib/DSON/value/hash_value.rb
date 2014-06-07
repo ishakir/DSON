@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'DSON/value'
 
 module DSON
@@ -15,14 +16,13 @@ module DSON
 
       def such_serialize_wow
         strings = value.keys.map do |key|
-          # TODO make this more generic
           key_str = VariableValue.new(key).such_serialize_wow
-          value_str = VariableValue.new(value[key]).such_serialize_wow
+          value_str = Value.new(value[key]).such_serialize_wow
 
           %Q(#{key_str} is #{value_str})
         end
-        'such ' + reduce(strings, POTENTIAL_PUNCTUATION) + "wow"
+        'such ' + reduce(strings, POTENTIAL_PUNCTUATION) + 'wow'
+      end
     end
-  end
   end
 end

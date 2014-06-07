@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module DSON
   class VariableValue
     attr_reader :value

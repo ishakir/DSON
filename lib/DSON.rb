@@ -1,8 +1,9 @@
+# -*- encoding : utf-8 -*-
 require 'DSON/version'
 require 'DSON/value'
 
 module DSON
-	 def self.such_serialize_wow(subject)
- 		 DSON::Value::HashValue.new(subject).such_serialize_wow
- 	end
+  def self.such_serialize_wow(subject)
+    DSON::Value.new(subject).such_serialize_wow
+  end
 end

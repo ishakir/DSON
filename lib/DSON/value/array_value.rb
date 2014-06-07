@@ -1,17 +1,23 @@
+# -*- encoding : utf-8 -*-
 module DSON
-  class ArrayValue
-    POTENTIAL_JOINERS = %w(and also)
+  module Value
+    class ArrayValue
+      include Value
 
-    attr_reader :value
+      POTENTIAL_JOINERS = [' and' , ' also']
 
-    def initialize(value)
-      @value = value
-    end
+      attr_reader :value
 
-    def such_serialize_wow
-      content = values.reduce('') do |array_entry|
+      def initialize(value)
+        @value = value
+      end
 
+      def such_serialize_wow
+        content = value.map do |arr_elem|
+          Value.new(arr_elem).such_serialize_wow
+        end
+        'so ' + reduce(content, POTENTIAL_JOINERS) + 'many'
       end
     end
-  end
+end
 end
