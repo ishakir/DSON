@@ -1,16 +1,24 @@
 # -*- encoding : utf-8 -*-
 require 'DSON/value/hash_value'
 require 'DSON/value/array_value'
-require 'DSON/value/variable_value'
+require 'DSON/value/string_value'
+require 'DSON/value/nil_value'
+require 'DSON/value/true_value'
+require 'DSON/value/false_value'
+require 'DSON/value/numeric_value'
 
 module DSON
   module Value
     SPACE = %q( )
 
     def self.new(value)
-      return HashValue.new(value) if value.respond_to?(:keys)
-      return ArrayValue.new(value) if value.respond_to?(:each)
-      VariableValue.new(value)
+      return HashValue.new(value)    if value.respond_to? :keys
+      return ArrayValue.new(value)   if value.respond_to? :each
+      return NilValue.instance       if value.nil?
+      return TrueValue.instance      if value.is_a? TrueClass
+      return FalseValue.instance     if value.is_a? FalseClass
+      #return NumericValue.new(value) if value.is_a? Fixnum
+      StringValue.new(value)
     end
 
     def reduce(list, potential_joiners)

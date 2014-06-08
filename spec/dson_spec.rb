@@ -288,3 +288,82 @@ describe 'DSON hash and array mixes' do
   end
 
 end
+
+describe "DSON empty" do
+
+  it "translates a nil object to empty" do
+    dson_hash = {
+      value: nil
+    }
+    dson_string = DSON.such_serialize_wow(dson_hash)
+
+    expect(dson_string).to eq(
+      'such "value" is empty wow'
+    )
+  end
+
+end
+
+describe "DSON booleans" do
+
+  it "translates a true object to yes" do
+    dson_hash = {
+      value: true
+    }
+    dson_string = DSON.such_serialize_wow(dson_hash)
+
+    expect(dson_string).to eq(
+      'such "value" is yes wow'
+    )
+  end
+
+  it "translates a false object to no" do
+    dson_hash = {
+      value: false
+    }
+    dson_string = DSON.such_serialize_wow(dson_hash)
+
+    expect(dson_string).to eq(
+      'such "value" is no wow'
+    )
+  end
+
+end
+
+#TODO fix when we can do octals generically
+# describe "DSON numbers" do
+
+#   it "doesn't quote numeric values" do
+#     dson_hash = {
+#       value: 13
+#     }
+#     dson_string = DSON.such_serialize_wow(dson_hash)
+
+#     expect(dson_string).to eq(
+#       'such "value" is 13 wow'
+#     )
+#   end
+
+#   it "quotes numeric values represented as strings" do
+#     dson_hash = {
+#       value: "13"
+#     }
+#     dson_string = DSON.such_serialize_wow(dson_hash)
+
+#     expect(dson_string).to eq(
+#       'such "value" is "13" wow'
+#     )
+#   end
+
+#   it "quotes float values" do
+#     dson_hash = {
+#       value: 12.5
+#     }
+#     dson_string = DSON.such_serialize_wow(dson_hash)
+
+#     expect(dson_string).to eq(
+#       'such "value" is 12.5 wow'
+#     )
+#   end
+
+# end
