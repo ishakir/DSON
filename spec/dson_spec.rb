@@ -246,4 +246,45 @@ describe 'DSON hash and array mixes' do
     )
   end
 
+  it 'should handle an object with an empty array element' do
+    dson_hash = {
+      array: []
+    }
+    dson_string = DSON.such_serialize_wow(dson_hash)
+
+    expect(dson_string).to eq(
+      'such "array" is so many wow'
+    )
+  end
+
+  it 'should handle an object with an array element' do
+    dson_hash = {
+      array: [
+        'olive',
+        'grape'
+      ]
+    }
+    dson_string = DSON.such_serialize_wow(dson_hash)
+
+    expect(dson_string).to match(
+      /such "array" is so "olive" #{AND_MATCH} "grape" many wow/
+    )
+  end
+
+  it 'should handle an array with an object element' do
+    dson_array = [
+      {
+        first_name: 'Cyril',
+        surname: 'Figgis'
+      }
+    ]
+    dson_string = DSON.such_serialize_wow(dson_array)
+
+    first_or_last_name = '("first_name" is "Cyril"|"surname" is "Figgis")'
+
+    expect(dson_string).to match(
+      /so such #{first_or_last_name}#{PUNCTUATION_MATCH} #{first_or_last_name} wow many/
+    )
+  end
+
 end
