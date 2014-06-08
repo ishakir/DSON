@@ -115,4 +115,14 @@ describe 'DSON simple array handling' do
     )
   end
 
+  it "dayo" do
+    puts DSON.such_serialize_wow({
+      ruby: 'pure',
+      supports: [
+        'hash',
+        'array'
+      ]
+    })
+  end
+
 end

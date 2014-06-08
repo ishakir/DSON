@@ -1,6 +1,6 @@
 # DSON
 
-TODO: Write a gem description
+Such serialization! Totally pure-ruby also completely DSON. Wow!
 
 ## Installation
 
@@ -18,7 +18,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Currently supports a ruby hash and array data structure and outputs it's representation in DSON ([Doge Serialized Object notation](http://dogeon.org/)). By way of an example, try:
+
+    require 'DSON'
+
+    puts DSON.such_serialize_wow({
+      ruby: 'pure',
+      supports: [
+        'hash',
+        'array'
+      ]
+    })
+
+This should output:
+
+    such "ruby" is "pure", "supports" is so "hash" also "array" many wow
+
+Correct to the DSON spec
 
 ## Contributing
 
