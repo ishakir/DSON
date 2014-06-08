@@ -2,6 +2,10 @@
 
 Such serialization! Totally pure-ruby also completely DSON. Wow!
 
+Currently known deficiencies:
+* Number handling (needs to be octal, currently treated as string)
+* Have not implemented yes, no or empty
+
 ## Installation
 
 Add this line to your application's Gemfile:

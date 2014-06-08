@@ -115,14 +115,135 @@ describe 'DSON simple array handling' do
     )
   end
 
-  it "dayo" do
-    puts DSON.such_serialize_wow({
-      ruby: 'pure',
-      supports: [
-        'hash',
-        'array'
-      ]
-    })
+end
+
+describe 'DSON nested arrays' do
+
+  it 'should correctly handle empty nested arrays' do
+    dson_array = [[]]
+    dson_string = DSON.such_serialize_wow(dson_array)
+
+    expect(dson_string).to eq(
+      'so so many many'
+    )
+  end
+
+  it 'should correctly handle nested arrays with elements' do
+    dson_array = ['cheese', []]
+    dson_string = DSON.such_serialize_wow(dson_array)
+
+    expect(dson_string).to match(
+      /so "cheese" #{AND_MATCH} so many many/
+    )
+  end
+
+  it 'should correctly handle a nested array with an element' do
+    dson_array = [['cheese']]
+    dson_string = DSON.such_serialize_wow(dson_array)
+
+    expect(dson_string).to eq(
+      'so so "cheese" many many'
+    )
+  end
+
+  it 'should correctly handle a more complex nested array' do
+    dson_array = ['cheese', ['cheese', ['cheese']]]
+    dson_string = DSON.such_serialize_wow(dson_array)
+
+    expect(dson_string).to match(
+      /so "cheese" #{AND_MATCH} so "cheese" #{AND_MATCH} so "cheese" many many many/
+    )
+  end
+
+end
+
+describe 'DSON nested hashes' do
+
+  it 'should handle a simple nested hash' do
+    dson_hash = {
+      nested: {}
+    }
+    dson_string = DSON.such_serialize_wow(dson_hash)
+
+    expect(dson_string).to eq(
+      'such "nested" is such wow wow'
+    )
+  end
+
+  it 'should handle a further nested hash' do
+    dson_hash = {
+      nested: {
+        further_nested: {
+        }
+      }
+    }
+    dson_string = DSON.such_serialize_wow(dson_hash)
+
+    expect(dson_string).to eq(
+      'such "nested" is such "further_nested" is such wow wow wow'
+    )
+  end
+
+  it 'should handle other elements in this hash' do
+    dson_hash = {
+      other: 'true',
+      nested: {
+      }
+    }
+    dson_string = DSON.such_serialize_wow(dson_hash)
+
+    other_or_nested = '("other" is "true"|"nested" is such wow)'
+
+    expect(dson_string).to match(
+      /such #{other_or_nested}#{PUNCTUATION_MATCH} #{other_or_nested} wow/
+    )
+  end
+
+  it 'should handle elements in a nested hash' do
+    dson_hash = {
+      other: 'true',
+      nested: {
+        element: 'great'
+      }
+    }
+    dson_string = DSON.such_serialize_wow(dson_hash)
+
+    other_or_nested = '("other" is "true"|"nested" is such "element" is "great" wow)'
+
+    expect(dson_string).to match(
+      /such #{other_or_nested}#{PUNCTUATION_MATCH} #{other_or_nested} wow/
+    )
+  end
+
+  it 'should handle multiple elements in the nested hash' do
+    dson_hash = {
+      wine: {
+        white: 'great',
+        red: 'greater'
+      }
+    }
+    dson_string = DSON.such_serialize_wow(dson_hash)
+
+    white_or_red = '("white" is "great"|"red" is "greater")'
+
+    expect(dson_string).to match(
+      /such "wine" is such #{white_or_red}#{PUNCTUATION_MATCH} #{white_or_red} wow wow/
+    )
+  end
+
+end
+
+describe 'DSON hash and array mixes' do
+
+  it 'should handle an array of empty objects' do
+    dson_array = [
+      {}, {}
+    ]
+    dson_string = DSON.such_serialize_wow(dson_array)
+
+    expect(dson_string).to match(
+      /so such wow #{AND_MATCH} such wow many/
+    )
   end
 
 end
