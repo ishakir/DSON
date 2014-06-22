@@ -21,7 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-Currently supports a ruby hash and array data structure and outputs it's representation in DSON ([Doge Serialized Object notation](http://dogeon.org/)). By way of an example, try:
+Currently supports a ruby object, hash and array data structure and outputs it's representation in DSON ([Doge Serialized Object notation](http://dogeon.org/)). By way of an example, try:
 
     require 'DSON'
 
@@ -37,7 +37,9 @@ This should output:
 
     such "ruby" is "pure", "supports" is so "hash" also "array" many wow
 
-Correct to the DSON spec
+Correct to the DSON spec.
+
+Try it out with custom ruby objects too!
 
 ## Contributing
 
