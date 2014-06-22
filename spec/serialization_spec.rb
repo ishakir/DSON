@@ -6,7 +6,7 @@ require_relative 'lib/example_class'
 PUNCTUATION_MATCH = '(,|\.|!|\\?)'
 AND_MATCH = '(and|also)'
 
-describe 'DSON simple hash handling' do
+describe 'simple hashes' do
 
   it 'should be correct with an empty hash' do
     dson_hash = Hash.new
@@ -342,10 +342,10 @@ describe 'ruby objects' do
     ruby_object = DSONSpec::ExampleClass.new('awesome', 'superb')
     dson_string = DSON.such_serialize_wow(ruby_object)
 
-    real_or_imaginary = '("name" is "awesome"|"value" is "superb")'
+    name_or_value = '("name" is "awesome"|"value" is "superb")'
 
     expect(dson_string).to match(
-      /such #{real_or_imaginary}#{PUNCTUATION_MATCH} #{real_or_imaginary} wow/
+      /such #{name_or_value}#{PUNCTUATION_MATCH} #{name_or_value} wow/
     )
   end
 

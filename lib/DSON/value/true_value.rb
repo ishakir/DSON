@@ -8,6 +8,10 @@ module DSON
       include Value
       include Singleton
 
+      def self.so_parse
+        true
+      end
+
       def such_serialize_wow
         'yes'
       end

@@ -8,6 +8,10 @@ module DSON
 
       attr_reader :value
 
+      def self.so_parse(string)
+        string[1..-2]
+      end
+
       def initialize(value)
         @value = value
       end
