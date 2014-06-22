@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'DSON'
 
+require_relative 'lib/example_class'
+
 PUNCTUATION_MATCH = '(,|\.|!|\\?)'
 AND_MATCH = '(and|also)'
 
@@ -325,6 +327,28 @@ describe "DSON booleans" do
 
     expect(dson_string).to eq(
       'such "value" is no wow'
+    )
+  end
+
+end
+
+describe "ruby objects" do
+
+  it "translates a trivial class instance to DSON" do
+    ruby_object = DSONSpec::TrivialClass.new()
+    dson_string = DSON.such_serialize_wow(ruby_object)
+
+    expect(dson_string).to eq("such wow")
+  end
+
+  it "translates an example class instance to DSON" do
+    ruby_object = DSONSpec::ExampleClass.new("awesome", "superb")
+    dson_string = DSON.such_serialize_wow(ruby_object)
+
+    real_or_imaginary = '("name" is "awesome"|"value" is "superb")'
+
+    expect(dson_string).to match(
+      /such #{real_or_imaginary}#{PUNCTUATION_MATCH} #{real_or_imaginary} wow/
     )
   end
 

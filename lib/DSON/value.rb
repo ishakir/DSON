@@ -6,6 +6,7 @@ require 'DSON/value/nil_value'
 require 'DSON/value/true_value'
 require 'DSON/value/false_value'
 require 'DSON/value/numeric_value'
+require 'DSON/value/object_value'
 
 module DSON
   module Value
@@ -18,7 +19,8 @@ module DSON
       return TrueValue.instance      if value.is_a? TrueClass
       return FalseValue.instance     if value.is_a? FalseClass
       #return NumericValue.new(value) if value.is_a? Fixnum
-      StringValue.new(value)
+      return StringValue.new(value)  if value.is_a? String
+      return ObjectValue.new(value)
     end
 
     def reduce(list, potential_joiners)
