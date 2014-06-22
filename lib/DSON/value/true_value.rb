@@ -7,9 +7,9 @@ module DSON
     class TrueValue
       include Value
       include Singleton
-      
+
       def such_serialize_wow
-        "yes"
+        'yes'
       end
     end
   end

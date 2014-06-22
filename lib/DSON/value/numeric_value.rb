@@ -5,7 +5,7 @@ module DSON
   module Value
     class NumericValue
       include Value
-      
+
       attr_reader :value
 
       def initialize(value)

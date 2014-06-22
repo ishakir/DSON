@@ -261,10 +261,7 @@ describe 'DSON hash and array mixes' do
 
   it 'should handle an object with an array element' do
     dson_hash = {
-      array: [
-        'olive',
-        'grape'
-      ]
+      array: %w(olive grape)
     }
     dson_string = DSON.such_serialize_wow(dson_hash)
 
@@ -291,9 +288,9 @@ describe 'DSON hash and array mixes' do
 
 end
 
-describe "DSON empty" do
+describe 'DSON empty' do
 
-  it "translates a nil object to empty" do
+  it 'translates a nil object to empty' do
     dson_hash = {
       value: nil
     }
@@ -306,9 +303,9 @@ describe "DSON empty" do
 
 end
 
-describe "DSON booleans" do
+describe 'DSON booleans' do
 
-  it "translates a true object to yes" do
+  it 'translates a true object to yes' do
     dson_hash = {
       value: true
     }
@@ -319,7 +316,7 @@ describe "DSON booleans" do
     )
   end
 
-  it "translates a false object to no" do
+  it 'translates a false object to no' do
     dson_hash = {
       value: false
     }
@@ -332,17 +329,17 @@ describe "DSON booleans" do
 
 end
 
-describe "ruby objects" do
+describe 'ruby objects' do
 
-  it "translates a trivial class instance to DSON" do
-    ruby_object = DSONSpec::TrivialClass.new()
+  it 'translates a trivial class instance to DSON' do
+    ruby_object = DSONSpec::TrivialClass.new
     dson_string = DSON.such_serialize_wow(ruby_object)
 
-    expect(dson_string).to eq("such wow")
+    expect(dson_string).to eq('such wow')
   end
 
-  it "translates an example class instance to DSON" do
-    ruby_object = DSONSpec::ExampleClass.new("awesome", "superb")
+  it 'translates an example class instance to DSON' do
+    ruby_object = DSONSpec::ExampleClass.new('awesome', 'superb')
     dson_string = DSON.such_serialize_wow(ruby_object)
 
     real_or_imaginary = '("name" is "awesome"|"value" is "superb")'
@@ -354,7 +351,7 @@ describe "ruby objects" do
 
 end
 
-#TODO fix when we can do octals generically
+# TODO fix when we can do octals generically
 # describe "DSON numbers" do
 
 #   it "doesn't quote numeric values" do

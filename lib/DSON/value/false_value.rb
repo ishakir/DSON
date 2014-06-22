@@ -7,9 +7,9 @@ module DSON
     class FalseValue
       include Value
       include Singleton
-      
+
       def such_serialize_wow
-        "no"
+        'no'
       end
     end
   end

@@ -9,9 +9,8 @@ module DSON
       include Singleton
 
       def such_serialize_wow
-        "empty"
+        'empty'
       end
-
     end
   end
 end

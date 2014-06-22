@@ -18,9 +18,9 @@ module DSON
       return NilValue.instance       if value.nil?
       return TrueValue.instance      if value.is_a? TrueClass
       return FalseValue.instance     if value.is_a? FalseClass
-      #return NumericValue.new(value) if value.is_a? Fixnum
+      # return NumericValue.new(value) if value.is_a? Fixnum
       return StringValue.new(value)  if value.is_a? String
-      return ObjectValue.new(value)
+      ObjectValue.new(value)
     end
 
     def reduce(list, potential_joiners)

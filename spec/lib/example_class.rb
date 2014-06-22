@@ -1,7 +1,7 @@
 module DSONSpec
   class TrivialClass
   end
-  
+
   class ExampleClass
     attr_accessor :name
     attr_accessor :value
