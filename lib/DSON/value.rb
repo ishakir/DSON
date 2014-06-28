@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
   # -*- encoding : utf-8 -*-
 require 'DSON/value/hash_value'
 require 'DSON/value/array_value'
@@ -25,40 +26,36 @@ module DSON
 
     def self.so_parse(dson_string)
       string_hash, replaced_string = remove_all_strings(dson_string)
-      puts "String Hash: #{string_hash}"
       handle_next(
-        word_array: replaced_string.gsub(/,|\?|!|\./, " ,").split(" "), 
+        word_array: replaced_string.gsub(/,|\?|!|\./, ' ,').split(' '),
         string_hash: string_hash
       )
     end
 
     def self.handle_next(options)
-
       word_array = options[:word_array]
 
-      fail RuntimeError, "An error has occurred, this could be either user error or a bug. Please check your DSON is valid, and if it is, please raise a GitHub issue" if word_array.empty?
-
-      puts "Handling #{word_array}"
+      fail 'An error has occurred, this could be either user error or a bug. Please check your DSON is valid, and if it is, please raise a GitHub issue' if word_array.empty?
 
       first_word = word_array.shift
 
-      if(first_word == "such")
+      if first_word == 'such'
         return HashValue.so_parse(
           word_array: word_array,
-          parent_hash: Hash.new,
+          parent_hash: {},
           string_hash: options[:string_hash]
         )
       end
-      if(first_word == "so")
+      if first_word == 'so'
         return ArrayValue.so_parse(
           word_array: word_array,
-          parent_array: Array.new,
+          parent_array: [],
           string_hash: options[:string_hash]
         )
       end
-      return TrueValue.so_parse           if first_word == "yes"
-      return FalseValue.so_parse          if first_word == "no"
-      return NilValue.so_parse            if first_word == "empty"
+      return TrueValue.so_parse           if first_word == 'yes'
+      return FalseValue.so_parse          if first_word == 'no'
+      return NilValue.so_parse            if first_word == 'empty'
 
       options[:first_word] = first_word
       StringValue.so_parse(options)
@@ -81,13 +78,12 @@ module DSON
     protected
 
     def self.remove_all_strings(dson_string)
-      string_hash = Hash.new
+      string_hash = {}
       replaced_string = dson_string.gsub(/"(.*?)"/).with_index do |match, index|
         string_hash[index] = match[1..-2]
         index
       end
-      puts replaced_string
-      return [string_hash, replaced_string]
+      [string_hash, replaced_string]
     end
 
     def reduce(list, potential_joiners)

@@ -16,7 +16,10 @@ module DSON
         # Construct a hash of the instance variables
         object_hash = Hash[
           value.instance_variables.map do |variable|
-            [remove_at_from_attribute_name(variable), value.instance_variable_get(variable)]
+            [
+              remove_at_from_attribute_name(variable),
+              value.instance_variable_get(variable)
+            ]
           end
         ]
 
@@ -25,6 +28,7 @@ module DSON
       end
 
       private
+
       def remove_at_from_attribute_name(attribute_name)
         attribute_name[1..-1]
       end

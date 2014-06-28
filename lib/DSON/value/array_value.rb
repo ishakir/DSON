@@ -7,23 +7,19 @@ module DSON
       include Value
 
       def self.so_parse(options)
-
         word_array = options[:word_array]
         parent_array = options[:parent_array]
 
-        if word_array[0] == "many"
+        if word_array[0] == 'many'
           word_array.shift
-          return parent_array 
+          return parent_array
         end
-        if !(word_array[0] =~ /and|also/).nil?
-          word_array.shift
-        end
+        word_array.shift unless (word_array[0] =~ /and|also/).nil?
 
         # the next value will be the value
         parent_array.push(DSON::Value.handle_next(options))
 
-        self.so_parse(options)
-
+        so_parse(options)
       end
 
       POTENTIAL_JOINERS = [' and' , ' also']
@@ -40,8 +36,6 @@ module DSON
         end
         'so ' + reduce(content, POTENTIAL_JOINERS) + 'many'
       end
-
-      private
 
       AND_ALSO_REGEX = / and | also /
 

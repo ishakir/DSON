@@ -7,18 +7,14 @@ module DSON
       include Value
 
       def self.so_parse(options)
-
         word_array = options[:word_array]
         parent_hash = options[:parent_hash]
-        puts "So parse #{word_array}"
 
-        if(word_array[0] == "wow")
+        if word_array[0] == 'wow'
           word_array.shift
           return parent_hash
         end
-        if !(word_array[0] =~ (/\?|\.|,|!/)).nil?
-          word_array.shift
-        end
+        word_array.shift unless (word_array[0] =~ (/\?|\.|,|!/)).nil?
 
         string_hash = options[:string_hash]
 
@@ -32,11 +28,7 @@ module DSON
         value = DSON::Value.handle_next(options)
         parent_hash[key] = value
 
-        puts "Numeric key #{numeric_key}"
-        puts "Key #{key}"
-        puts "Value #{value}"
-
-        self.so_parse(options)
+        so_parse(options)
       end
 
       POTENTIAL_PUNCTUATION = %w(, . ! ?)
@@ -56,8 +48,6 @@ module DSON
         end
         'such ' + reduce(strings, POTENTIAL_PUNCTUATION) + 'wow'
       end
-
-      private
 
       def self.parse_pair(string, acc_hash)
         results = string.scan(/"(.*)" is (.*)/)

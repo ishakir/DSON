@@ -351,7 +351,7 @@ describe 'ruby objects' do
 
 end
 
-# TODO fix when we can do octals generically
+# TODO: fix when we can do octals generically
 # describe "DSON numbers" do
 
 #   it "doesn't quote numeric values" do

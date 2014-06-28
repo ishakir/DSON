@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'DSON/value'
 
 require 'singleton'
