@@ -23,14 +23,45 @@ module DSON
       ObjectValue.new(value)
     end
 
-    def self.so_parse(string)
-      puts "Parsing '#{string}'"
-      return HashValue.so_parse(string)   if string.start_with?('such') && string.end_with?('wow')
-      return ArrayValue.so_parse(string)  if string.start_with?('so') && string.end_with?('many')
-      return TrueValue.so_parse           if string == "yes"
-      return FalseValue.so_parse          if string == "no"
-      return NilValue.so_parse            if string == "empty"
-      StringValue.so_parse(string)
+    def self.so_parse(dson_string)
+      string_hash, replaced_string = remove_all_strings(dson_string)
+      puts "String Hash: #{string_hash}"
+      handle_next(
+        word_array: replaced_string.gsub(/,|\?|!|\./, " ,").split(" "), 
+        string_hash: string_hash
+      )
+    end
+
+    def self.handle_next(options)
+
+      word_array = options[:word_array]
+
+      fail RuntimeError, "An error has occurred, this could be either user error or a bug. Please check your DSON is valid, and if it is, please raise a GitHub issue" if word_array.empty?
+
+      puts "Handling #{word_array}"
+
+      first_word = word_array.shift
+
+      if(first_word == "such")
+        return HashValue.so_parse(
+          word_array: word_array,
+          parent_hash: Hash.new,
+          string_hash: options[:string_hash]
+        )
+      end
+      if(first_word == "so")
+        return ArrayValue.so_parse(
+          word_array: word_array,
+          parent_array: Array.new,
+          string_hash: options[:string_hash]
+        )
+      end
+      return TrueValue.so_parse           if first_word == "yes"
+      return FalseValue.so_parse          if first_word == "no"
+      return NilValue.so_parse            if first_word == "empty"
+
+      options[:first_word] = first_word
+      StringValue.so_parse(options)
     end
 
     # Class methods can't be accessed from subclasses if protected...
@@ -48,6 +79,16 @@ module DSON
     end
 
     protected
+
+    def self.remove_all_strings(dson_string)
+      string_hash = Hash.new
+      replaced_string = dson_string.gsub(/"(.*?)"/).with_index do |match, index|
+        string_hash[index] = match[1..-2]
+        index
+      end
+      puts replaced_string
+      return [string_hash, replaced_string]
+    end
 
     def reduce(list, potential_joiners)
       list.each_with_index.reduce('') do |acc, (element, index)|

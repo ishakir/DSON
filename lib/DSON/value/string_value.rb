@@ -8,8 +8,9 @@ module DSON
 
       attr_reader :value
 
-      def self.so_parse(string)
-        string[1..-2]
+      def self.so_parse(options)
+        numeric_identifier = options[:first_word]
+        options[:string_hash][numeric_identifier.to_i]
       end
 
       def initialize(value)

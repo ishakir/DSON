@@ -104,9 +104,11 @@ describe 'parsing simple arrays' do
     dson_string = 'so " and " also " also " and " and " many'
     parsed_dson = DSON.so_parse(dson_string)
 
-    expect(parsed_dson[0]).to eq("and")
-    expect(parsed_dson[1]).to eq("also")
-    expect(parsed_dson[2]).to eq("and")
+    puts parsed_dson.size
+
+    expect(parsed_dson[0]).to eq(" and ")
+    expect(parsed_dson[1]).to eq(" also ")
+    expect(parsed_dson[2]).to eq(" and ")
   end
 
 end
@@ -199,7 +201,7 @@ describe 'DSON nested hashes' do
   end
 
   it 'should handle elements in a nested hash' do
-    dson_string = 'such "other" is "true". such "nested" is such "element" is "great" wow wow'
+    dson_string = 'such "other" is "true". "nested" is such "element" is "great" wow wow'
     parsed_dson = DSON.so_parse(dson_string)
 
     expect(parsed_dson["other"]).to             eq("true")
@@ -255,6 +257,8 @@ describe 'parsing DSON booleans' do
   it 'should translate yes in a hash to true' do
     dson_string = 'such "dson" is yes wow'
     parsed_dson = DSON.so_parse(dson_string)
+
+    puts parsed_dson
 
     expect(parsed_dson['dson']).to be_a(TrueClass)
   end

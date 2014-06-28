@@ -6,14 +6,24 @@ module DSON
     class ArrayValue
       include Value
 
-      def self.so_parse(string)
-        reduced_string = DSON::Value.remove_first_and_last_words(string)
+      def self.so_parse(options)
 
-        value_strings = reduced_string.split(AND_ALSO_REGEX, 0)
+        word_array = options[:word_array]
+        parent_array = options[:parent_array]
 
-        value_strings.reduce(Array.new) do |array, result|
-          parse_value(result, array)
+        if word_array[0] == "many"
+          word_array.shift
+          return parent_array 
         end
+        if !(word_array[0] =~ /and|also/).nil?
+          word_array.shift
+        end
+
+        # the next value will be the value
+        parent_array.push(DSON::Value.handle_next(options))
+
+        self.so_parse(options)
+
       end
 
       POTENTIAL_JOINERS = [' and' , ' also']

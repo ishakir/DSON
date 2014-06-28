@@ -6,14 +6,37 @@ module DSON
     class HashValue
       include Value
 
-      def self.so_parse(string)
-        reduced_string = DSON::Value.remove_first_and_last_words(string)
+      def self.so_parse(options)
 
-        pair_strings = reduced_string.split /,|\.|!|\?/
+        word_array = options[:word_array]
+        parent_hash = options[:parent_hash]
+        puts "So parse #{word_array}"
 
-        pair_strings.reduce(Hash.new) do |hash, result|
-          parse_pair(result.strip, hash)
+        if(word_array[0] == "wow")
+          word_array.shift
+          return parent_hash
         end
+        if !(word_array[0] =~ (/\?|\.|,|!/)).nil?
+          word_array.shift
+        end
+
+        string_hash = options[:string_hash]
+
+        # The next value will be a key
+        numeric_key = word_array.shift
+        key = string_hash[numeric_key.to_i]
+
+        # remove is
+        word_array.shift
+
+        value = DSON::Value.handle_next(options)
+        parent_hash[key] = value
+
+        puts "Numeric key #{numeric_key}"
+        puts "Key #{key}"
+        puts "Value #{value}"
+
+        self.so_parse(options)
       end
 
       POTENTIAL_PUNCTUATION = %w(, . ! ?)
