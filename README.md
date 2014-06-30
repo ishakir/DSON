@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ishakir/DSON.svg)](https://travis-ci.org/ishakir/DSON)
+
 # DSON
 
 Such serialization now also parsing! Totally pure-ruby also completely DSON. Wow!
