@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/ishakir/DSON.svg)](https://travis-ci.org/ishakir/DSON)
-
 # DSON
 
 Such serialization now also parsing! Totally pure-ruby also completely DSON. Wow!
@@ -23,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-*Serialization*
+**Serialization**
 
 Currently supports a ruby object, hash and array data structure and outputs it's representation in DSON ([Doge Serialized Object notation](http://dogeon.org/)). By way of an example, try:
 
@@ -45,9 +44,9 @@ Correct to the DSON spec.
 
 Try it out with custom ruby objects too!
 
-*Parsing*
+**Parsing**
 
-Surrently should parse a DSON object given as a string. Not the world's best put together parse but should function reasonably with general DSON strings. Try
+Currently should parse a DSON object given as a string. Not the world's best put together parse but should function reasonably with general DSON strings. Try:
 
     require 'DSON'
 
