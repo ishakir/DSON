@@ -9,7 +9,9 @@ module DSON
       attr_reader :value
 
       def self.so_parse(value)
-        value[1..-2]
+        start_index = value.index('"') + 1
+        end_index = value.rindex('"') - 1
+        value[start_index..end_index]
       end
 
       def initialize(value)

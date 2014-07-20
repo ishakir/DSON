@@ -290,3 +290,75 @@ describe 'parsing DSON empty' do
     expect(parsed_dson[0]).to be_nil
   end
 end
+
+describe 'parsing numbers' do
+  it 'should translate a positive float to a base 10 float' do
+    dson_string = 'such "number" is 22.88 wow'
+    parsed_dson = DSON.so_parse(dson_string)
+
+    expect(parsed_dson["number"]).to eq 19.125
+  end
+
+it 'should translate a negative float to a base 10 float' do
+    dson_string = 'such "number" is -22.88 wow'
+    parsed_dson = DSON.so_parse(dson_string)
+
+    expect(parsed_dson["number"]).to eq -19.125
+  end
+
+  it 'should translate a positive integer to a base 10 integer' do
+    dson_string = 'such "number" is 15 wow'
+    parsed_dson = DSON.so_parse(dson_string)
+
+    expect(parsed_dson["number"]).to eq 13
+  end
+
+  it 'should translate a negative integer to a base 10 integer' do
+    dson_string = 'such "number" is -15 wow'
+    parsed_dson = DSON.so_parse(dson_string)
+
+    expect(parsed_dson["number"]).to eq -13
+  end
+
+  it 'should translate a number in the very format to a base 10 number' do
+    dson_string = 'such "number" is 42very3 wow'
+    parsed_dson = DSON.so_parse(dson_string)
+
+    expect(parsed_dson["number"]).to eq 17408
+  end
+
+  it 'should translate a number in the VERY format to a base 10 number' do
+    dson_string = 'such "number" is 42VERY3 wow'
+    parsed_dson = DSON.so_parse(dson_string)
+
+    expect(parsed_dson["number"]).to eq 17408
+  end
+
+  it 'should translate a number in the very format with a negative exponent' do
+    dson_string = 'such "number" is 42very-3 wow'
+    parsed_dson = DSON.so_parse(dson_string)
+
+    expect(parsed_dson["number"]).to eq 0.06640625
+  end
+
+  it 'should translate a number in the very format with a negative coefficient' do
+    dson_string = 'such "number" is -42very3 wow'
+    parsed_dson = DSON.so_parse(dson_string)
+
+    expect(parsed_dson["number"]).to eq -17408
+  end
+
+  it 'should translate a number in the very format a when coefficient and exponent are floats' do
+    dson_string = 'such "number" is 42.88very13.13'
+    parsed_dson = DSON.so_parse(dson_string)
+
+    expect(parsed_dson["number"]).to eq  431345013035.9022
+  end
+
+  it 'should translate a number in the very format with coefficnient and exponent are negative floats' do
+        dson_string = 'such "number" is -42.88very-1.13'
+    parsed_dson = DSON.so_parse(dson_string)
+
+    expect(parsed_dson["number"]).to eq  -3.0711975623692616
+  end
+end

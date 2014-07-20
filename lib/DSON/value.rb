@@ -26,7 +26,7 @@ module DSON
 
     def self.so_parse(dson_string)
       handle_next(
-        word_array: dson_string.scan(/(?:"(?:\\.|[^"])*"|[^" ,!\.\?])+/),
+        word_array: dson_string.scan(/(?:"(?:\\.|[^"])*"|[^" ,!\?])+|\.(?!\d)+/),
       )
     end
 
@@ -52,6 +52,7 @@ module DSON
       return TrueValue.so_parse           if first_word == 'yes'
       return FalseValue.so_parse          if first_word == 'no'
       return NilValue.so_parse            if first_word == 'empty'
+      return NumericValue.so_parse(first_word) unless first_word.start_with? '"'
 
       StringValue.so_parse(first_word)
     end

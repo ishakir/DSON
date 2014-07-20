@@ -9,6 +9,7 @@ module DSON
       def self.so_parse(options)
         word_array = options[:word_array]
         parent_hash = options[:parent_hash]
+        return parent_hash if word_array.empty?
 
         if word_array[0] == 'wow'
           word_array.shift
