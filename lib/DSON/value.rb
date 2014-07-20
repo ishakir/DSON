@@ -19,7 +19,7 @@ module DSON
       return NilValue.instance       if value.nil?
       return TrueValue.instance      if value.is_a? TrueClass
       return FalseValue.instance     if value.is_a? FalseClass
-      # return NumericValue.new(value) if value.is_a? Fixnum
+      return NumericValue.new(value) if value.is_a? Integer or value.is_a? Float
       return StringValue.new(value)  if value.is_a? String
       ObjectValue.new(value)
     end

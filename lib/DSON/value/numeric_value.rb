@@ -13,7 +13,7 @@ module DSON
       end
 
       def such_serialize_wow
-        value
+        value.b(8).to_s
       end
     end
   end
