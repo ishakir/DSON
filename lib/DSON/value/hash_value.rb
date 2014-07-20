@@ -14,13 +14,9 @@ module DSON
           word_array.shift
           return parent_hash
         end
-        word_array.shift unless (word_array[0] =~ (/\?|\.|,|!/)).nil?
-
-        string_hash = options[:string_hash]
 
         # The next value will be a key
-        numeric_key = word_array.shift
-        key = string_hash[numeric_key.to_i]
+        key = word_array.shift[1..-2]
 
         # remove is
         word_array.shift

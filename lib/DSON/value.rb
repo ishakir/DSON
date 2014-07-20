@@ -25,10 +25,8 @@ module DSON
     end
 
     def self.so_parse(dson_string)
-      string_hash, replaced_string = remove_all_strings(dson_string)
       handle_next(
-        word_array: replaced_string.gsub(/,|\?|!|\./, ' ,').split(' '),
-        string_hash: string_hash
+        word_array: dson_string.scan(/(?:"(?:\\.|[^"])*"|[^" ,!\.\?])+/),
       )
     end
 
@@ -42,23 +40,20 @@ module DSON
       if first_word == 'such'
         return HashValue.so_parse(
           word_array: word_array,
-          parent_hash: {},
-          string_hash: options[:string_hash]
+          parent_hash: {}
         )
       end
       if first_word == 'so'
         return ArrayValue.so_parse(
           word_array: word_array,
-          parent_array: [],
-          string_hash: options[:string_hash]
+          parent_array: []
         )
       end
       return TrueValue.so_parse           if first_word == 'yes'
       return FalseValue.so_parse          if first_word == 'no'
       return NilValue.so_parse            if first_word == 'empty'
 
-      options[:first_word] = first_word
-      StringValue.so_parse(options)
+      StringValue.so_parse(first_word)
     end
 
     # Class methods can't be accessed from subclasses if protected...

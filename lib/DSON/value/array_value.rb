@@ -14,10 +14,12 @@ module DSON
           word_array.shift
           return parent_array
         end
-        word_array.shift unless (word_array[0] =~ /and|also/).nil?
+        word_array.shift unless (word_array[0] =~ /^(and|also)$/).nil?
 
         # the next value will be the value
         parent_array.push(DSON::Value.handle_next(options))
+
+        return parent_array if word_array.empty?
 
         so_parse(options)
       end
