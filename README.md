@@ -3,9 +3,6 @@
 # DSON
 
 Such serialization now also parsing! Totally pure-ruby also completely DSON. Wow!
- 
-Currently known deficiencies:
-* Number handling (needs to be octal, currently treated as string)
 
 ## Installation
 
@@ -47,7 +44,7 @@ Try it out with custom ruby objects too!
 
 **Parsing**
 
-Currently should parse a DSON object given as a string. Not the world's best put together parse but should function reasonably with general DSON strings. Try:
+Currently should parse a DSON object given as a string. Not the world's best put together parser but should function reasonably with general DSON strings. Try:
 
     require 'DSON'
 
