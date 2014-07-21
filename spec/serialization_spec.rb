@@ -351,40 +351,28 @@ describe 'ruby objects' do
 
 end
 
-# TODO: fix when we can do octals generically
-# describe "DSON numbers" do
+describe "DSON numbers" do
 
-#   it "doesn't quote numeric values" do
-#     dson_hash = {
-#       value: 13
-#     }
-#     dson_string = DSON.such_serialize_wow(dson_hash)
+  it 'converts integers to octal' do
+    dson_hash = {
+      value: 13
+    }
+    dson_string = DSON.such_serialize_wow(dson_hash)
 
-#     expect(dson_string).to eq(
-#       'such "value" is 13 wow'
-#     )
-#   end
+    expect(dson_string).to eq(
+      'such "value" is 15 wow'
+    )
+  end
 
-#   it "quotes numeric values represented as strings" do
-#     dson_hash = {
-#       value: "13"
-#     }
-#     dson_string = DSON.such_serialize_wow(dson_hash)
+  it 'converts floats to octal' do
+    dson_hash = {
+      value: 18.00001
+    }
+    dson_string = DSON.such_serialize_wow(dson_hash)
 
-#     expect(dson_string).to eq(
-#       'such "value" is "13" wow'
-#     )
-#   end
+    expect(dson_string).to eq(
+      'such "value" is 22.8 wow'
+    )
+  end
 
-#   it "quotes float values" do
-#     dson_hash = {
-#       value: 12.5
-#     }
-#     dson_string = DSON.such_serialize_wow(dson_hash)
-
-#     expect(dson_string).to eq(
-#       'such "value" is 12.5 wow'
-#     )
-#   end
-
-# end
+end
