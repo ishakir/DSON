@@ -54,6 +54,8 @@ Currently should parse a DSON object given as a string. Not the world's best put
 
 ## Contributing
 
+I would love it if someone could contribute a pretty printer!
+
 1. Fork it ( https://github.com/ishakir/DSON/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
